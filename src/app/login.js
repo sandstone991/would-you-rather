@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, selectAllUsers } from "../features/users/usersSlice";
+import {
+  getUsers,
+  selectAllUsers,
+  changeCurrentUser,
+  selectCurrentUser,
+} from "../features/users/usersSlice";
 import BarLoader from "react-spinners/BarLoader";
 import { css } from "@emotion/react";
 
@@ -13,8 +18,10 @@ export const Login = () => {
   const dispatch = useDispatch();
   const userStatus = useSelector((state) => state.users.status);
   const users = useSelector(selectAllUsers);
-
-  const errHappened = useSelector((state) => state.users.error);
+  const handleSubmit = () => {
+    dispatch(changeCurrentUser(users[selectValue]));
+  };
+  //const errHappened = useSelector((state) => state.users.error);
   useEffect(() => {
     if (userStatus === "idle") {
       dispatch(getUsers());
@@ -36,7 +43,10 @@ export const Login = () => {
           <div className="login-instruct">Please sign in to continue</div>
           <div className="inner-login-container">
             <span className="login-word">Sign in</span>
-            <select className="login-select" value={selectValue}>
+            <select
+              className="login-select"
+              value={selectValue}
+              onChange={(e) => setSelectValue(e.target.value)}>
               <option value={"none"} disabled>
                 Select a user
               </option>
@@ -46,7 +56,9 @@ export const Login = () => {
                 </option>
               ))}
             </select>
-            <button className="login-button">Sign in</button>
+            <button className="login-button" onClick={handleSubmit}>
+              Sign in
+            </button>
           </div>
         </div>
       </div>

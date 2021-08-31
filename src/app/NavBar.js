@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../features/users/usersSlice";
 function NavBar() {
+  let currentUser = useSelector(selectCurrentUser);
   return (
     <div className="container topnav">
       <div className="link-1 nav-bar-link">
@@ -15,11 +18,11 @@ function NavBar() {
       </div>
       {
         //Add Status to fetching the information for the navbar
-        true ? (
+        currentUser ? (
           <>
-            <span className="profile-info">Hi, Ahmed Azzam</span>
+            <span className="profile-info">{`Hi, ${currentUser.name}`}</span>
             <img
-              src="https://api.minimalavatars.com/avatar/random/svg"
+              src={currentUser.avatarURL}
               className="avatar profile-img"></img>
             <div className="link-4 nav-bar-link">
               <Link to="login/:loggedout">Logout</Link>
