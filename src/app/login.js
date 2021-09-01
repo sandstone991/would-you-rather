@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import BarLoader from "react-spinners/BarLoader";
+import { css } from "@emotion/react";
+import { Redirect, useHistory } from "react-router-dom";
 import {
   getUsers,
   selectAllUsers,
   changeCurrentUser,
   selectCurrentUser,
 } from "../features/users/usersSlice";
-import BarLoader from "react-spinners/BarLoader";
-import { css } from "@emotion/react";
 
 const override = css`
   display: block;
   margin-top: 300px;
 `;
 export const Login = () => {
+  let history = useHistory();
   const [selectValue, setSelectValue] = useState("none");
   const dispatch = useDispatch();
   const userStatus = useSelector((state) => state.users.status);
   const users = useSelector(selectAllUsers);
+  const currentUser = useSelector(selectCurrentUser);
   const handleSubmit = () => {
     dispatch(changeCurrentUser(users[selectValue]));
+    history.push("/home");
   };
+
   //const errHappened = useSelector((state) => state.users.error);
   useEffect(() => {
     if (userStatus === "idle") {
@@ -64,5 +69,10 @@ export const Login = () => {
       </div>
     );
   }
-  return content;
+  if (currentUser) {
+    alert(`You're already logged in!`);
+    return <Redirect to="home" />;
+  } else {
+    return content;
+  }
 };

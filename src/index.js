@@ -4,17 +4,23 @@ import "./index.css";
 import App from "./App";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import NavBar from "./app/NavBar";
 import { Login } from "./app/login";
+import Home from "./app/Home";
+import NotFound from "./app/NotFound";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
         <Route path="/" component={NavBar} />
-        <Route path="/login" component={Login} />
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/home" component={Home} />
+          <Route path="*" component={NotFound} />
+        </Switch>
       </Router>
     </Provider>
   </React.StrictMode>,

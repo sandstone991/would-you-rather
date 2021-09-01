@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../features/users/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCurrentUser,
+  changeCurrentUser,
+} from "../features/users/usersSlice";
 function NavBar() {
   let currentUser = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    dispatch(changeCurrentUser(null));
+  };
   return (
     <div className="container topnav">
       <div className="link-1 nav-bar-link">
@@ -25,7 +32,9 @@ function NavBar() {
               src={currentUser.avatarURL}
               className="avatar profile-img"></img>
             <div className="link-4 nav-bar-link">
-              <Link to="login/:loggedout">Logout</Link>
+              <Link onClick={handleLogOut} to="login">
+                Logout
+              </Link>
             </div>
           </>
         ) : null
