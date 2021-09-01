@@ -295,4 +295,7 @@ div.home-qustion-button button:hover {
 }
 .home-question-content {
   grid-area: home-question-content;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

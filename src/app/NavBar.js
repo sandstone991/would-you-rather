@@ -30,6 +30,7 @@ function NavBar() {
             <span className="profile-info">{`Hi, ${currentUser.name}`}</span>
             <img
               src={currentUser.avatarURL}
+              alt={`${currentUser.name}'s avatar`}
               className="avatar profile-img"></img>
             <div className="link-4 nav-bar-link">
               <Link onClick={handleLogOut} to="login">

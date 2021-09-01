@@ -4,7 +4,12 @@ import "./index.css";
 import App from "./App";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import NavBar from "./app/NavBar";
 import { Login } from "./app/login";
@@ -15,11 +20,20 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <Route path="/" component={NavBar} />
+        <Route
+          path="/"
+          render={() => {
+            return (
+              <>
+                <NavBar key="navbar" /> <Redirect to="home" />
+              </>
+            );
+          }}
+        />
         <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/home" component={Home} />
-          <Route path="*" component={NotFound} />
+          <Route exact path="/login" key="login" component={Login} />
+          <Route exact path="/home" key="home" component={Home} />
+          <Route path="*" key="notfound" component={NotFound} />
         </Switch>
       </Router>
     </Provider>
