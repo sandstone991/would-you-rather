@@ -23,8 +23,8 @@ const Home = () => {
   let status = useSelector(selectCurrnetStatus);
   let questions = useSelector(selectQuestions);
   const [{ answered, unanswered }, setActive] = useState({
-    answered: "active-questions",
-    unanswered: "inactive-qustions",
+    answered: "inactive-questions",
+    unanswered: "active-questions",
   });
   const [{ answeredQuestionsIds, unansweredQuestionsIds }, setQuestionIds] =
     useState({
@@ -35,26 +35,33 @@ const Home = () => {
 
   //toggle between answered and unaswered questions
 
-  const handdleToggleQuestions = () => {
+  const handdleToggleUnanswered = () => {
     setActive({
-      answered: unanswered,
-      unanswered: answered,
+      answered: "inactive-questions",
+      unanswered: "active-questions",
     });
   };
+  const handdleToggleAnswered = () => {
+    setActive({
+      answered: "active-questions",
+      unanswered: "inactive-questions",
+    });
+  };
+
   useEffect(() => {
     if (status === "idle") {
       dispatch(getQuestions());
     } else if (status === "success") {
       setQuestionIds((state) => ({
         ...state,
-        unansweredQuestionsIds: Object.keys(currentUser.answers).map(
+        answeredQuestionsIds: Object.keys(currentUser.answers).map(
           (answer) => answer
         ),
       }));
       setQuestionIds((state) => ({
         ...state,
-        answeredQuestionsIds: Object.keys(questions).filter(
-          (key) => !unansweredQuestionsIds.includes(key)
+        unansweredQuestionsIds: Object.keys(questions).filter(
+          (key) => !state.answeredQuestionsIds.includes(key)
         ),
       }));
     }
@@ -75,21 +82,29 @@ const Home = () => {
         <div className="container-home">
           <div className="toggle-questions-contianer">
             <span
-              className={`toggle-questions ${answered}`}
-              onClick={handdleToggleQuestions}>
+              className={`toggle-questions ${unanswered}`}
+              onClick={handdleToggleUnanswered}>
               Unanswered Questions
             </span>
             <span
-              className={`toggle-questions border-question ${unanswered}`}
-              onClick={handdleToggleQuestions}>
+              className={`toggle-questions border-question ${answered}`}
+              onClick={handdleToggleAnswered}>
               Answered Questions
             </span>
           </div>
-          <Questions
-            questionsIds={unansweredQuestionsIds}
-            questions={questions}
-            users={users}
-          />
+          {unanswered === "active-questions" ? (
+            <Questions
+              questionsIds={unansweredQuestionsIds}
+              questions={questions}
+              users={users}
+            />
+          ) : (
+            <Questions
+              questionsIds={answeredQuestionsIds}
+              questions={questions}
+              users={users}
+            />
+          )}
         </div>
       );
     }
