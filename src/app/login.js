@@ -17,6 +17,7 @@ const override = css`
 export const Login = () => {
   let history = useHistory();
   const [selectValue, setSelectValue] = useState("none");
+  const isDisabled = () => (selectValue === "none" ? true : false);
   const dispatch = useDispatch();
   const userStatus = useSelector((state) => state.users.status);
   const users = useSelector(selectAllUsers);
@@ -61,7 +62,10 @@ export const Login = () => {
                 </option>
               ))}
             </select>
-            <button className="login-button" onClick={handleSubmit}>
+            <button
+              className="login-button"
+              onClick={handleSubmit}
+              disabled={isDisabled()}>
               Sign in
             </button>
           </div>

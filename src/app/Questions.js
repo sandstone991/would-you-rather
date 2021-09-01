@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const Questions = (props) => {
   const { questions, users, questionsIds } = props;
   return (
@@ -20,7 +21,9 @@ const Questions = (props) => {
               ...{questions[id].optionOne.text}...
             </div>
             <div className="home-qustion-button">
-              <button>View Poll</button>
+              <button>
+                <Link to={`/questions/${id}`}>View Poll</Link>
+              </button>
             </div>
           </div>
         );

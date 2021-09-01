@@ -15,6 +15,7 @@ import NavBar from "./app/NavBar";
 import { Login } from "./app/login";
 import Home from "./app/Home";
 import NotFound from "./app/NotFound";
+import Question from "./app/Question";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -33,6 +34,7 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/login" key="login" component={Login} />
           <Route exact path="/home" key="home" component={Home} />
+          <Route exact path="/questions/:id" component={Question} />
           <Route path="*" key="notfound" component={NotFound} />
         </Switch>
       </Router>
