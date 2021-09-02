@@ -415,7 +415,7 @@ div.answer-question-button button:hover {
 .meter {
   box-sizing: content-box;
   position: relative;
-  background: rgb(241, 241, 241);
+  background: rgba(204, 204, 204, 0.582);
   height: 20px;
   border-radius: 3px;
   margin-top: 10px;
