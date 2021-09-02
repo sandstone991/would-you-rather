@@ -233,8 +233,8 @@ div.nav-bar-link a {
   background-color: #f0f0f0;
   color: #31bea6;
 }
-.inactive-qustions:hover {
-  background-color: #f0f0f0;
+.inactive-questions:hover {
+  background-color: #f5f5f5;
 }
 .border-question {
   border-left: 1.5px solid #ebebeb;
