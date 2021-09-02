@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
 import { _getUsers } from "../../_DATA";
+
 let initialState = {
   list: {},
   status: "idle",
@@ -18,6 +20,10 @@ export const usersSlice = createSlice({
   reducers: {
     changeCurrentUser: (state, action) => {
       state.currentUser = action.payload;
+    },
+    voteCurrentUser: (state, action) => {
+      state.currentUser.answers[action.payload.id] =
+        action.payload.submitOption;
     },
   },
   extraReducers(builder) {
@@ -38,6 +44,7 @@ export const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
-export const { changeCurrentUser } = usersSlice.actions;
+export const { changeCurrentUser, voteCurrentUser } = usersSlice.actions;
 export const selectAllUsers = (state) => state.users.list;
+export const selectStatus = (state) => state.users.status;
 export const selectCurrentUser = (state) => state.users.currentUser;

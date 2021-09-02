@@ -21,7 +21,7 @@ const Questions = (props) => {
               ...{questions[id].optionOne.text}...
             </div>
             <div className="home-qustion-button">
-              <Link to={`/questions/${id}/${isAnswered}`}>View Poll</Link>
+              <Link to={`/questions/${id}/${isAnswered}/none`}>View Poll</Link>
             </div>
           </div>
         );

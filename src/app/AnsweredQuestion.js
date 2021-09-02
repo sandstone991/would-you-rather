@@ -1,6 +1,10 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { selectQuestions } from "../features/questions/questionsSlice";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import {
+  getQuestions,
+  selectQuestions,
+} from "../features/questions/questionsSlice";
 import {
   selectAllUsers,
   selectCurrentUser,
@@ -14,8 +18,9 @@ const AnsweredQuestion = (props) => {
   const question = questions[id];
   const asker = users[question.author];
   //Votes count
-  const voteOneCount = question.optionOne.votes.length;
-  const voteTwoCount = question.optionTwo.votes.length;
+  let voteOneCount = question.optionOne.votes.length;
+  let voteTwoCount = question.optionTwo.votes.length;
+
   const totalVotes = voteOneCount + voteTwoCount;
   //Precentage
   const precentageOne = ((voteOneCount / totalVotes) * 100).toFixed(1);
@@ -23,7 +28,6 @@ const AnsweredQuestion = (props) => {
   //Current user's Answer
   const currentUserAnswer = currentUser.answers[id];
   const choseOptionOne = currentUserAnswer === "optionOne";
-
   return (
     <div className="question-answered-container">
       <div className="answered-question-asked-by">{`Asked by ${asker.name}`}</div>

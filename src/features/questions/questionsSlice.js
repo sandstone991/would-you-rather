@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { _getQuestions, _saveQuestionAnswer } from "../../_DATA";
+
 let initialState = {
   list: {},
   status: "idle",
   error: null,
+  postStatus: "idle",
 };
 
 export const getQuestions = createAsyncThunk(
@@ -16,8 +18,9 @@ export const getQuestions = createAsyncThunk(
 
 export const postQuestionAnswer = createAsyncThunk(
   "questions/postAnswer",
-  async (authedUser, qid, answer) => {
-    let response = await _saveQuestionAnswer(authedUser, qid, answer);
+  async (obj) => {
+    let response = await _saveQuestionAnswer(obj);
+    response = await _getQuestions();
     return response;
   }
 );
@@ -26,7 +29,11 @@ const questionsSlice = createSlice({
   name: "questions",
   initialState,
 
-  reducers: {},
+  reducers: {
+    resetPostStatus: (state) => {
+      state.postStatus = "idle";
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getQuestions.pending, (state) => {
@@ -40,12 +47,16 @@ const questionsSlice = createSlice({
         state.status = "failure";
         state.error = action.error.message;
       })
-      .addCase(postQuestionAnswer.fulfilled,()=>{
-        getQuestions()
+      .addCase(postQuestionAnswer.pending, (state) => {
+        state.postStatus = "loading";
       })
+      .addCase(postQuestionAnswer.fulfilled, (state, { payload }) => {
+        state.postStatus = "success";
+        state.list = payload;
+      });
   },
 });
-
+export const selectCurrentPostStatus = (state) => state.questions.postStatus;
 export const selectCurrnetStatus = (state) => state.questions.status;
 export const selectQuestions = (state) => state.questions.list;
 export default questionsSlice.reducer;
