@@ -13,6 +13,7 @@ import NotFound from "./NotFound";
 import Question from "./Question";
 import NavBar from "./NavBar";
 import { selectCurrentUser } from "../features/users/usersSlice";
+import NewQuestion from "./NewQuestion";
 function App() {
   let currentUser = useSelector(selectCurrentUser);
   return (
@@ -41,6 +42,21 @@ function App() {
           render={() =>
             currentUser ? (
               <Question />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/login",
+                }}
+              />
+            )
+          }
+        />
+        <Route
+          exact
+          path="/add"
+          render={() =>
+            currentUser ? (
+              <NewQuestion />
             ) : (
               <Redirect
                 to={{

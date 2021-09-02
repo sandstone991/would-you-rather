@@ -18,7 +18,7 @@ function NavBar() {
         <Link to="/home">Home</Link>
       </div>
       <div className="link-2 nav-bar-link">
-        <Link to="/newquestion">New Question</Link>
+        <Link to="/add">New Question</Link>
       </div>
       <div className="link-3 nav-bar-link">
         <Link to="/leaderboard">Leader Board</Link>

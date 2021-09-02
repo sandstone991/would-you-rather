@@ -10,3 +10,4 @@ export const store = configureStore({
     questions: questionsSlice,
   },
 });
+
