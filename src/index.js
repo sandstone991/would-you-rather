@@ -26,7 +26,7 @@ ReactDOM.render(
           render={() => {
             return (
               <>
-                <NavBar key="navbar" /> <Redirect to="home" />
+                <NavBar key="navbar" /> <Redirect to="login" />
               </>
             );
           }}
