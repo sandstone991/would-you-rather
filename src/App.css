@@ -269,18 +269,20 @@ div.nav-bar-link a {
 }
 .home-qustion-button {
   grid-area: home-qustion-button;
+  width: 100%;
 }
-div.home-qustion-button button {
-  padding: 8px;
-  width: 90%;
+div.home-qustion-button a {
+  padding: 10px 70px 10px;
+
   background-color: white;
   border: 1.5px solid #31bea6;
   border-radius: 3px;
   color: #31bea6;
   font-size: 12px;
   font-weight: 600;
+  text-decoration: none;
 }
-div.home-qustion-button button:hover {
+div.home-qustion-button a:hover {
   background-color: #e6e6e6;
   cursor: pointer;
 }
@@ -299,12 +301,7 @@ div.home-qustion-button button:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-div.home-qustion-button a {
-  color: #31bea6;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-}
+
 /* Answer Question */
 .container-question-answer {
   font-family: "Roboto Mono", monospace;
@@ -413,4 +410,214 @@ div.answer-question-button button:hover {
 .answer-question-text {
   grid-area: answer-question-text;
   font-size: 12px;
+}
+/*progress bar*/
+.meter {
+  box-sizing: content-box;
+  position: relative;
+  background: rgb(241, 241, 241);
+  height: 20px;
+  border-radius: 3px;
+  margin-top: 10px;
+  width: 70%;
+  font-family: "Roboto Mono", monospace;
+}
+.loading-bar {
+  height: 100%;
+  display: block;
+  background-color: #2fbea6;
+  background-image: linear-gradient(
+    center bottom,
+    rgb(47, 190, 166) 37%,
+    rgb(47, 190, 166) 69%
+  );
+
+  position: relative;
+  overflow: hidden;
+  text-align: right;
+  padding-right: 5px;
+  color: rgb(243, 243, 243);
+  border-radius: 3px;
+  width: 0%;
+}
+
+.loading-bar:after,
+.animate > span > span {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.1) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.1) 75%,
+    transparent 75%,
+    transparent
+  );
+
+  background-size: 35px 35px;
+  animation: move 3s linear infinite;
+}
+
+.animate > span:after {
+  display: none;
+}
+/*inner animation*/
+@keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.progress {
+  animation: progress 2s 0.3s ease forwards;
+}
+/*Answered Question*/
+.question-answered-container {
+  font-family: "Roboto Mono", monospace;
+  display: grid;
+  border: 1.5px solid #ebebeb;
+  width: 500px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 0.7fr 1.3fr;
+  grid-template-rows: 0.4fr 0.5fr 1.4fr 1.4fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "answered-question-asked-by answered-question-asked-by"
+    "answered-question-user-avatar answered-question-header"
+    "answered-question-user-avatar answered-result-1"
+    "answered-question-user-avatar answered-result-2";
+}
+
+.answered-question-header {
+  grid-area: answered-question-header;
+}
+.answered-question-asked-by {
+  grid-area: answered-question-asked-by;
+  background-color: #f8f8f8;
+  text-align: left;
+  padding: 8px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.answered-question-button {
+  grid-area: answered-question-button;
+}
+div.answered-question-button button {
+  padding: 8px;
+  width: 90%;
+  background-color: white;
+  border: 1.5px solid #31bea6;
+  border-radius: 3px;
+  color: #31bea6;
+  font-size: 12px;
+  font-weight: 600;
+}
+div.answered-question-button button:hover {
+  background-color: #e6e6e6;
+  cursor: pointer;
+}
+.answered-question-user-avatar {
+  grid-area: answered-question-user-avatar;
+  vertical-align: middle;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: azure;
+  margin: 5px;
+  margin-top: 10px;
+}
+
+.answered-result-text {
+  grid-area: answered-result-text;
+}
+.progress-bar {
+  grid-area: progress-bar;
+}
+.answered-result-1 {
+  display: grid;
+  padding: 15px;
+  position: relative;
+  margin: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "answered-result-text answered-result-text answered-result-text"
+    "progress-bar progress-bar progress-bar"
+    "answered-result-ratio answered-result-ratio answered-result-ratio";
+  grid-area: answered-result-1;
+}
+.answered-result-text {
+  grid-area: answered-result-text;
+}
+.progress-bar {
+  grid-area: progress-bar;
+}
+.answered-result-ratio {
+  grid-area: answered-result-ratio;
+}
+.answered-result-2 {
+  display: grid;
+  padding: 15px;
+  position: relative;
+  margin: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "answered-result-text answered-result-text answered-result-text"
+    "progress-bar progress-bar progress-bar"
+    "answered-result-ratio answered-result-ratio answered-result-ratio";
+  grid-area: answered-result-2;
+}
+.answered-question-winner {
+  background-color: #e1f8f7;
+  border: 1px solid #b3ccca;
+  border-radius: 3px;
+  color: #689a97;
+  font-weight: bold;
+}
+.answered-question-loser {
+  background-color: #f8f8f8;
+  color: #3c3c3c;
+  border: 1px solid #e3e3e3;
+  border-radius: 3px;
+}
+.your-answer {
+  transform: rotate(13deg);
+  height: 41.5px;
+  width: 41.5px;
+  color: rgb(255, 255, 255);
+  background-color: #e1b51b;
+  border-radius: 50%;
+  -webkit-text-stroke: 0.1px rgb(255, 255, 255);
+  display: inline-block;
+  text-align: center;
+  line-height: 16.5px;
+  font-size: 11px;
+  position: absolute;
+  right: -20px;
+  top: -13px;
+  font-weight: 900;
 }

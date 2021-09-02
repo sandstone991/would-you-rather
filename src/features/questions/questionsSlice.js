@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { _getQuestions } from "../../_DATA";
+import { _getQuestions, _saveQuestionAnswer } from "../../_DATA";
 let initialState = {
   list: {},
   status: "idle",
@@ -10,6 +10,14 @@ export const getQuestions = createAsyncThunk(
   "questions/getQuestions",
   async () => {
     let response = await _getQuestions();
+    return response;
+  }
+);
+
+export const postQuestionAnswer = createAsyncThunk(
+  "questions/postAnswer",
+  async (authedUser, qid, answer) => {
+    let response = await _saveQuestionAnswer(authedUser, qid, answer);
     return response;
   }
 );
@@ -31,7 +39,10 @@ const questionsSlice = createSlice({
       .addCase(getQuestions.rejected, (state, action) => {
         state.status = "failure";
         state.error = action.error.message;
-      });
+      })
+      .addCase(postQuestionAnswer.fulfilled,()=>{
+        getQuestions()
+      })
   },
 });
 

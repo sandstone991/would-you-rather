@@ -17,8 +17,8 @@ const override = css`
   display: block;
   margin-top: 300px;
 `;
-const Home = () => {
-  let currentUser = useSelector(selectCurrentUser);
+const Home = (props) => {
+  const currentUser = useSelector(selectCurrentUser);
   let users = useSelector(selectAllUsers);
   let status = useSelector(selectCurrnetStatus);
   let questions = useSelector(selectQuestions);
@@ -96,12 +96,14 @@ const Home = () => {
             <Questions
               questionsIds={unansweredQuestionsIds}
               questions={questions}
+              isAnswered={false}
               users={users}
             />
           ) : (
             <Questions
               questionsIds={answeredQuestionsIds}
               questions={questions}
+              isAnswered={true}
               users={users}
             />
           )}

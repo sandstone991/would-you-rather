@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 const Questions = (props) => {
-  const { questions, users, questionsIds } = props;
+  const { questions, users, isAnswered, questionsIds } = props;
   return (
     <>
       {questionsIds.map((id) => {
@@ -21,9 +21,7 @@ const Questions = (props) => {
               ...{questions[id].optionOne.text}...
             </div>
             <div className="home-qustion-button">
-              <button>
-                <Link to={`/questions/${id}`}>View Poll</Link>
-              </button>
+              <Link to={`/questions/${id}/${isAnswered}`}>View Poll</Link>
             </div>
           </div>
         );
