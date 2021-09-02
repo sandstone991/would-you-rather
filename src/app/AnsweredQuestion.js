@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   getQuestions,
+  resetPostStatus,
   selectQuestions,
 } from "../features/questions/questionsSlice";
 import {
@@ -12,6 +13,8 @@ import {
 
 const AnsweredQuestion = (props) => {
   const { id } = props;
+  const dispatch = useDispatch();
+  dispatch(resetPostStatus());
   const currentUser = useSelector(selectCurrentUser);
   const users = useSelector(selectAllUsers);
   const questions = useSelector(selectQuestions);

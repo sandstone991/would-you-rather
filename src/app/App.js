@@ -37,7 +37,7 @@ function App() {
         <Route exact path="/home" key="home" component={Home} />
         <Route
           exact
-          path="/questions/:id/:isAnswered/:justVoted"
+          path="/questions/:id/:isAnswered"
           render={() =>
             currentUser ? (
               <Question />

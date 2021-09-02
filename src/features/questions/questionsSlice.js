@@ -30,7 +30,7 @@ const questionsSlice = createSlice({
   initialState,
 
   reducers: {
-    resetPostStatus: (state) => {
+    resetPostStatus: (state, action) => {
       state.postStatus = "idle";
     },
   },
@@ -56,6 +56,7 @@ const questionsSlice = createSlice({
       });
   },
 });
+export const { resetPostStatus } = questionsSlice.actions;
 export const selectCurrentPostStatus = (state) => state.questions.postStatus;
 export const selectCurrnetStatus = (state) => state.questions.status;
 export const selectQuestions = (state) => state.questions.list;

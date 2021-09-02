@@ -53,7 +53,7 @@ const UnansweredQuestion = (props) => {
       </div>
     );
   } else if (postStatus === "success") {
-    return <Redirect to={`/questions/${id}/${true}/${submitOption}`} replace />;
+    return <Redirect to={`/questions/${id}/${true}`} />;
   } else {
     return (
       <div className="container-question-answer">
