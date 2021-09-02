@@ -701,7 +701,7 @@ input:focus::placeholder {
 .add-submit {
   grid-area: add-submit;
 }
-div.add-submit a {
+div.add-submit button {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 42.3%;
@@ -711,8 +711,9 @@ div.add-submit a {
   background-color: #31bea6;
   text-decoration: none;
   color: rgb(243, 243, 243);
+  cursor: pointer;
 }
 
-div.add-submit a:hover {
+div.add-submit button:hover {
   background-color: #2ca591;
 }

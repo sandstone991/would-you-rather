@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { _getQuestions, _saveQuestionAnswer } from "../../_DATA";
+import { _getQuestions, _saveQuestion, _saveQuestionAnswer } from "../../_DATA";
 
 let initialState = {
   list: {},
   status: "idle",
-  error: null,
   postStatus: "idle",
+  postAddStatus: "idle",
+  error: null,
 };
 
 export const getQuestions = createAsyncThunk(
@@ -24,7 +25,14 @@ export const postQuestionAnswer = createAsyncThunk(
     return response;
   }
 );
-
+export const postQuestion = createAsyncThunk(
+  "questions/postQuestions",
+  async (obj) => {
+    let response = await _saveQuestion(obj);
+    response = await _getQuestions();
+    return response;
+  }
+);
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
@@ -32,6 +40,9 @@ const questionsSlice = createSlice({
   reducers: {
     resetPostStatus: (state, action) => {
       state.postStatus = "idle";
+    },
+    resetAddStatus: (state) => {
+      state.postAddStatus = "idle";
     },
   },
   extraReducers(builder) {
@@ -53,11 +64,19 @@ const questionsSlice = createSlice({
       .addCase(postQuestionAnswer.fulfilled, (state, { payload }) => {
         state.postStatus = "success";
         state.list = payload;
+      })
+      .addCase(postQuestion.pending, (state) => {
+        state.postAddStatus = "loading";
+      })
+      .addCase(postQuestion.fulfilled, (state, { payload }) => {
+        state.postAddStatus = "success";
+        state.list = payload;
       });
   },
 });
-export const { resetPostStatus } = questionsSlice.actions;
+export const { resetPostStatus, resetAddStatus } = questionsSlice.actions;
 export const selectCurrentPostStatus = (state) => state.questions.postStatus;
 export const selectCurrnetStatus = (state) => state.questions.status;
 export const selectQuestions = (state) => state.questions.list;
+export const selectStatusAdd = (state) => state.questions.postAddStatus;
 export default questionsSlice.reducer;

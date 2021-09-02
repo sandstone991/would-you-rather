@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-import BarLoader from "react-spinners/BarLoader";
-import { css } from "@emotion/react";
 import {
   getQuestions,
+  resetAddStatus,
   selectCurrnetStatus,
   selectQuestions,
 } from "../features/questions/questionsSlice";
@@ -13,10 +12,7 @@ import {
   selectCurrentUser,
 } from "../features/users/usersSlice";
 import Questions from "./Questions";
-const override = css`
-  display: block;
-  margin-top: 300px;
-`;
+import LoadingBar from "./LoadingBar";
 const Home = (props) => {
   const currentUser = useSelector(selectCurrentUser);
   let users = useSelector(selectAllUsers);
@@ -32,7 +28,7 @@ const Home = (props) => {
       unansweredQuestionsIds: [],
     });
   const dispatch = useDispatch();
-
+  dispatch(resetAddStatus());
   //toggle between answered and unaswered questions
 
   const handdleToggleUnanswered = () => {
@@ -72,11 +68,7 @@ const Home = (props) => {
     if (status === "idle") {
       return <div></div>;
     } else if (status === "loading") {
-      return (
-        <div className="login-container">
-          <BarLoader color={"#36D7B7"} height={5} width={200} css={override} />
-        </div>
-      );
+      return <LoadingBar />;
     } else if (status === "success") {
       return (
         <div className="container-home">

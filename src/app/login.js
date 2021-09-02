@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import BarLoader from "react-spinners/BarLoader";
-import { css } from "@emotion/react";
 import { Redirect, useHistory } from "react-router-dom";
 import {
   getUsers,
@@ -9,11 +7,7 @@ import {
   changeCurrentUser,
   selectCurrentUser,
 } from "../features/users/usersSlice";
-
-const override = css`
-  display: block;
-  margin-top: 300px;
-`;
+import LoadingBar from "./LoadingBar";
 export const Login = () => {
   let history = useHistory();
   const [selectValue, setSelectValue] = useState("none");
@@ -36,11 +30,7 @@ export const Login = () => {
 
   let content = <div></div>;
   if (userStatus === "loading") {
-    content = (
-      <div className="login-container">
-        <BarLoader color={"#36D7B7"} height={5} width={200} css={override} />
-      </div>
-    );
+    content = <LoadingBar />;
   } else if (userStatus === "success") {
     content = (
       <div className="login-container">
