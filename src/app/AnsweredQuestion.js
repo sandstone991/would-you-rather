@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import {
-  getQuestions,
   resetPostStatus,
   selectQuestions,
 } from "../features/questions/questionsSlice";
@@ -14,7 +12,7 @@ import {
 const AnsweredQuestion = (props) => {
   const { id } = props;
   const dispatch = useDispatch();
-  dispatch(resetPostStatus());
+
   const currentUser = useSelector(selectCurrentUser);
   const users = useSelector(selectAllUsers);
   const questions = useSelector(selectQuestions);
@@ -31,10 +29,15 @@ const AnsweredQuestion = (props) => {
   //Current user's Answer
   const currentUserAnswer = currentUser.answers[id];
   const choseOptionOne = currentUserAnswer === "optionOne";
+
   return (
     <div className="question-answered-container">
       <div className="answered-question-asked-by">{`Asked by ${asker.name}`}</div>
-      <img className="answered-question-user-avatar" src={asker.avatarURL} />
+      <img
+        className="answered-question-user-avatar"
+        src={asker.avatarURL}
+        alt={`${asker.name}'s avatar`}
+      />
       <div className="answered-question-header">
         <h2>Results:</h2>
       </div>

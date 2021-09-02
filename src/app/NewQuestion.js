@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
   postQuestion,
+  resetAddStatus,
   selectStatusAdd,
 } from "../features/questions/questionsSlice";
 import { selectCurrentUser } from "../features/users/usersSlice";
@@ -14,6 +15,7 @@ const NewQuestion = () => {
   });
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
+  const addStatus = useSelector(selectStatusAdd);
   const author = currentUser.id;
   const handleChange = (e) => {
     if (e.target.name === "option1") {
@@ -43,8 +45,11 @@ const NewQuestion = () => {
       })
     );
   };
-  const addStatus = useSelector(selectStatusAdd);
+
   useEffect(() => {}, [addStatus, dispatch]);
+  useEffect(() => {
+    return () => dispatch(resetAddStatus());
+  }, [dispatch]);
   if (addStatus === "idle") {
     return (
       <div className="add-container">

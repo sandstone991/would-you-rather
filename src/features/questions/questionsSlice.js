@@ -65,7 +65,7 @@ const questionsSlice = createSlice({
         state.postStatus = "success";
         state.list = payload;
       })
-      .addCase(postQuestion.pending, (state) => {
+      .addCase(postQuestion.pending, (state, action) => {
         state.postAddStatus = "loading";
       })
       .addCase(postQuestion.fulfilled, (state, { payload }) => {

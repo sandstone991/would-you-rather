@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
   postQuestionAnswer,
+  resetPostStatus,
   selectCurrentPostStatus,
   selectCurrnetStatus,
   selectQuestions,
@@ -10,11 +11,11 @@ import {
 import {
   selectAllUsers,
   selectCurrentUser,
-  selectStatus,
   voteCurrentUser,
 } from "../features/users/usersSlice";
 import LoadingBar from "./LoadingBar";
 const UnansweredQuestion = (props) => {
+  //Oh my god look at this mess
   const { id } = props;
   const dispatch = useDispatch();
   const questions = useSelector(selectQuestions);
@@ -35,7 +36,11 @@ const UnansweredQuestion = (props) => {
       postQuestionAnswer({ authedUser: userId, qid: id, answer: submitOption })
     );
   };
-  useEffect(() => {}, [questionsStatus, dispatch]);
+  useEffect(() => {
+    return () => {
+      dispatch(resetPostStatus());
+    };
+  }, [questionsStatus, dispatch]);
   if (postStatus === "loading") {
     return <LoadingBar />;
   } else if (postStatus === "success") {
@@ -45,7 +50,11 @@ const UnansweredQuestion = (props) => {
       <div className="container-question-answer">
         <div className="question-answer-container">
           <div className="answer-question-asked-by">{`${asker.name} asks:`}</div>
-          <img className="answer-question-user-avatar" src={asker.avatarURL} />
+          <img
+            className="answer-question-user-avatar"
+            src={asker.avatarURL}
+            alt={`${asker}'s avatar`}
+          />
           <div className="answer-question-header">
             <h4>Would you rather</h4>
           </div>

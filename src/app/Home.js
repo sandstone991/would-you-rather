@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
   getQuestions,
-  resetAddStatus,
   selectCurrnetStatus,
   selectQuestions,
 } from "../features/questions/questionsSlice";
@@ -13,7 +12,7 @@ import {
 } from "../features/users/usersSlice";
 import Questions from "./Questions";
 import LoadingBar from "./LoadingBar";
-const Home = (props) => {
+const Home = () => {
   const currentUser = useSelector(selectCurrentUser);
   let users = useSelector(selectAllUsers);
   let status = useSelector(selectCurrnetStatus);
@@ -28,7 +27,7 @@ const Home = (props) => {
       unansweredQuestionsIds: [],
     });
   const dispatch = useDispatch();
-  dispatch(resetAddStatus());
+
   //toggle between answered and unaswered questions
 
   const handdleToggleUnanswered = () => {
