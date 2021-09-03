@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  resetPostStatus,
-  selectQuestions,
-} from "../features/questions/questionsSlice";
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectQuestions } from "../features/questions/questionsSlice";
 import {
   selectAllUsers,
   selectCurrentUser,
@@ -11,7 +8,6 @@ import {
 
 const AnsweredQuestion = (props) => {
   const { id } = props;
-  const dispatch = useDispatch();
 
   const currentUser = useSelector(selectCurrentUser);
   const users = useSelector(selectAllUsers);

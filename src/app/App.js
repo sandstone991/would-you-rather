@@ -14,6 +14,7 @@ import Question from "./Question";
 import NavBar from "./NavBar";
 import { selectCurrentUser } from "../features/users/usersSlice";
 import NewQuestion from "./NewQuestion";
+import LeaderBoard from "./LeaderBoard";
 function App() {
   let currentUser = useSelector(selectCurrentUser);
   return (
@@ -66,6 +67,22 @@ function App() {
             )
           }
         />
+        <Route
+          exact
+          path="/leaderboard"
+          render={() =>
+            currentUser ? (
+              <LeaderBoard />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/login",
+                }}
+              />
+            )
+          }
+        />
+
         <Route path="*" key="notfound" component={NotFound} />
       </Switch>
     </Router>
