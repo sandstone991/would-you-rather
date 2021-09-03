@@ -20,31 +20,33 @@ const LeaderBoard = () => {
 
   let content = leaderboard.map((user) => {
     return (
-      <div className="leaderboard-container">
-        <div className="leaderboard-inner-container">
-          <img className="leaderboard-avatar" src={user.avatarURL} />
-          <div className="leaderboard-name">
-            <h3>{user.name}</h3>
+      <div className="leaderboard-inner-container" key={user + Math.random()}>
+        <img
+          className="leaderboard-avatar"
+          src={user.avatarURL}
+          alt={`${user.name}'s avatar'`}
+        />
+        <div className="leaderboard-name">
+          <h3>{user.name}</h3>
+        </div>
+        <div className="leaderboard-answered">
+          <div className="answered-text">Answered questions:</div>
+          <div className="answered-score">{user.answeredCount}</div>
+        </div>
+        <div className="leaderboard-asked">
+          <div className="answered-text">Created questions:</div>
+          <div className="answered-score">{user.askedCount}</div>
+        </div>
+        <div className="leader-board-score">
+          <div className="inner-score">
+            <span>{user.total}</span>
           </div>
-          <div className="leaderboard-answered">
-            <div className="answered-text">Answered questions:</div>
-            <div className="answered-score">{user.answeredCount}</div>
-          </div>
-          <div className="leaderboard-asked">
-            <div className="answered-text">Created questions:</div>
-            <div className="answered-score">{user.askedCount}</div>
-          </div>
-          <div className="leader-board-score">
-            <div className="inner-score">
-              <span>{user.total}</span>
-            </div>
-            <div className="inner-score-heading">Score</div>
-          </div>
+          <div className="inner-score-heading">Score</div>
         </div>
       </div>
     );
   });
-  return content;
+  return <div className="leaderboard-container">{content}</div>;
 };
 
 export default LeaderBoard;
